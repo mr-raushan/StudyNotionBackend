@@ -2,8 +2,59 @@ const User = require("../models/User");
 const OTP = require("../models/OTP");
 const bcrypt = require("bcrypt");
 const Profile = require("../models/Profile");
+const otpGenerator = require("otp-generator");
 
 //SendOtp
+exports.sendOtp = async (req, res) => {
+  try {
+    //get email from request ki body
+    const { email } = req.body;
+    //check if user already exist
+    const checkUserPresent = await User.findOne({ email });
+    if (checkUserPresent) {
+      return res.status(400).json({
+        success: false,
+        message: "User alreday exist",
+      });
+    }
+
+    //generate random otp
+    const otp = otpGenerator.generate(6, {
+      upperCaseAlphabets: false,
+      lowerCaseAlphabets: false,
+      specialChars: false,
+    });
+
+    //check unique otp or not
+    let result = await User.findOne({ otp: otp });
+    while (result) {
+      otp = otpGenerator(6, {
+        upperCaseAlphabets: false,
+        lowerCaseAlphabets: false,
+        specialChars: false,
+      });
+      result = await User.findOne({ otp: otp });
+    }
+
+    const otpPayload = { email, otp };
+    //create an entry for otp in DB
+    const otpBody = await OTP.create(otpPayload);
+    console.log(otpBody);
+
+    //return successfull response
+    res.status(200).json({
+      success: true,
+      message: "OTP sent successfully!",
+      otp,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({
+      success: false,
+      message: "Failed to send OTP, please try again",
+    });
+  }
+};
 
 //signup
 3;
@@ -30,7 +81,7 @@ exports.signUp = async (req, res) => {
       !otp ||
       !confirmPassword
     ) {
-      return res.status(400).json({
+      return res.status(403).json({
         success: false,
         message: "All field are required!",
       });
@@ -179,7 +230,3 @@ exports.login = async (req, res) => {
     });
   }
 };
-
-//changePassword
-
-//1 : 17 : 00
