@@ -230,3 +230,44 @@ exports.login = async (req, res) => {
     });
   }
 };
+
+//change password
+//ai generated code
+exports.changePassword = async (req, res) => {
+  try {
+    //fetch data from request ki body
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+
+    //validate data
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "All field are required",
+      });
+    }
+
+    //check if user is authenticated or not
+    const user = req.user;
+
+    //generate jwt after password matching
+    if (await bcrypt.compare(oldPassword, user.password)) {
+      //2 password match krlo
+      if (newPassword !== confirmPassword) {
+        return res.status(400).json({
+          success: false,
+          message:
+            "New Password and Confirm Password are not match, please try again",
+        });
+      }
+
+      //hash password
+      const hashedPassword = bcrypt.hash(password, 10);
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      success: false,
+      message: "Failed to change password, try again.",
+    });
+  }
+};
