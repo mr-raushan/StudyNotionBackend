@@ -1,4 +1,5 @@
 const Categroy = require("../models/category");
+const Course = require("../models/Course");
 
 //create category ka handler
 
@@ -49,6 +50,48 @@ exports.showAllCategory = async (req, res) => {
     return res.status(400).json({
       success: false,
       message: "Failed to retrieve all category, please try again",
+    });
+  }
+};
+
+//categoryPageDetails
+
+exports.categoryPageDetails = async (req, res) => {
+  try {
+    const { CategroyId } = req.body;
+
+    //get course for the specified category
+    const selectedCategory = await Course.findById(CategroyId)
+      .populate("courses")
+      .exec();
+
+    //validation
+    if (!selectedCategory) {
+      return res.status(404).json({
+        success: false,
+        message: "Category not found",
+      });
+    }
+
+    //get courses for different categories
+    const differentCategories = await Categroy.find({
+      _id: { $ne: CategroyId },
+    })
+      .populate("courses")
+      .exec();
+
+    //get top selling courses
+
+    //return response
+
+    //handle the case when category is not found
+
+    //handle the case when there are no courses
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to retrieve category page details, please try again",
     });
   }
 };
