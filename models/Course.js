@@ -3,8 +3,6 @@ const mongoose = require("mongoose");
 const courseSchema = new mongoose.Schema({
   courseName: {
     type: String,
-    required: true,
-    trim: true,
   },
   courseDescription: {
     type: String,
@@ -16,31 +14,27 @@ const courseSchema = new mongoose.Schema({
   },
   whatYouWillLearn: {
     type: String,
-    required: true,
   },
   courseContent: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Section",
-      required: true,
     },
   ],
   ratingAndReviews: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "RatingAndReview",
-      required: true,
     },
   ],
   price: {
     type: Number,
-    required: true,
   },
   thumbnail: {
     type: String,
   },
   tag: {
-    type: String,
+    type: [String],
     required: true,
   },
   category: {
@@ -56,7 +50,7 @@ const courseSchema = new mongoose.Schema({
     },
   ],
   instructions: {
-    type: String,
+    type: [String],
   },
   status: {
     type: String,

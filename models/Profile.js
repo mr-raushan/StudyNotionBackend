@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const profileSchema = new mongoose.Schema({
   gender: {
     type: String,
-    required: true,
-    enum: ["Male", "Female", "Others"],
+    // required: true,
+    // enum: ["Male", "Female", "Others"],
   },
   age: {
     type: Number,
@@ -14,10 +14,10 @@ const profileSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  mobile: {
-    type: Number,
-    trim: true,
-  },
+  // mobile: {
+  //   type: Number,
+  //   trim: true,
+  // },
   dateOfBirth: {
     type: String,
   },

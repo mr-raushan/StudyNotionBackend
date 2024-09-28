@@ -14,18 +14,24 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
-    lowercase: true,
+    trim: true,
   },
   password: {
     type: String,
     required: true,
-    minlength: 8,
   },
   accountType: {
     type: String,
     enum: ["Admin", "Student", "Instructor"],
     required: true,
+  },
+  active: {
+    type: Boolean,
+    default: true,
+  },
+  approved: {
+    type: Boolean,
+    default: true,
   },
   additionalDetails: {
     type: mongoose.Schema.Types.ObjectId,
@@ -42,7 +48,7 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   resetPasswordExpires: {
-    type: String,
+    type: Date,
   },
   image: {
     type: String,

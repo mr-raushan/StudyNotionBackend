@@ -79,6 +79,7 @@ exports.categoryPageDetails = async (req, res) => {
     })
       .populate("courses")
       .exec();
+    console.log(differentCategories);
 
     //get top selling courses
 

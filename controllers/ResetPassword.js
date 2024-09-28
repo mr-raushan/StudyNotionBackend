@@ -3,7 +3,6 @@ const mailSender = require("../utils/mailSender");
 const bcrypt = require("bcrypt");
 
 //resetPasswordToken
-
 exports.resetPasswordToken = async (req, res) => {
   try {
     //get email from req ki body
@@ -31,6 +30,8 @@ exports.resetPasswordToken = async (req, res) => {
         new: true,
       }
     );
+    console.log(updateDetails);
+
     //create url
     const url = `https://localhost:5172/update-password/${token}`;
     //send mail containing the url
