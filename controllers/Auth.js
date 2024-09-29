@@ -9,7 +9,6 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 //signup
-
 exports.signUp = async (req, res) => {
   try {
     //fetch data from request ki body
