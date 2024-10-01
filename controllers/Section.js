@@ -78,7 +78,10 @@ exports.updateSection = async (req, res) => {
 exports.deleteSection = async (req, res) => {
   try {
     // fetch id
-    const { sectionId } = req.params;
+    //agar section delete krte time error aaye tb
+    // req.params
+    // krke ek try krna
+    const { sectionId } = req.body;
     // validate id
     if (!sectionId) {
       return res.status(401).json({

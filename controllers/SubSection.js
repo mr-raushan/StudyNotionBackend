@@ -8,6 +8,8 @@ exports.subSection = async (req, res) => {
     //fetch data
     const { sectionId, title, description, timeDuration } = req.body;
     //extract file/video
+    //postman ke document me error aayega fileName ke wajah  se to yaha wala update krna pdega
+    //waise yaha pr videoFile name but let's see if any error has happened
     const video = req.files.videoFile;
     //data validation
     if (!sectionId || !title || !description || !timeDuration || !video) {

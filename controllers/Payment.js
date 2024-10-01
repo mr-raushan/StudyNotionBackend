@@ -2,7 +2,7 @@ const { instance } = require("../config/razorpay");
 const User = require("../models/User");
 const Course = require("../models/Course");
 const MailSender = require("../utils/mailSender");
-const { default: orders } = require("razorpay/dist/types/orders");
+// const { default: orders } = require("razorpay/dist/types/orders");
 const mailSender = require("../utils/mailSender");
 
 //capture the payment and initiate the razorpay order
